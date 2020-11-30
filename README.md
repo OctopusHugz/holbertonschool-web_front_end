@@ -1,0 +1,1 @@
+This directory stores all the front-end projects for the Web Stack Specialization.
