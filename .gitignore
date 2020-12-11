@@ -1,1 +1,14 @@
+*
+!*/
+!*.*
+*~
+*main.c
+*_putchar.c
+*#
+*.o
+*a.out
+*pycache*
+*.json
+*main.py
+*.so
 check.sh
