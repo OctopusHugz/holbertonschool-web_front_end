@@ -13,6 +13,11 @@ html {
 	scroll-behavior: smooth;
 }
 
+body {
+	color: var(--text-color);
+	font-family: var(--font-family-base);
+}
+
 h1,
 h2,
 h3,
@@ -22,7 +27,6 @@ h6 {
 	font-family: var(--font-family-title);
 }
 
-body,
 a {
 	color: var(--text-color);
 	font-family: var(--font-family-base);
@@ -32,7 +36,10 @@ a {
 	display: none;
 }
 
-.card-category,
+.card-category {
+	color: var(--color-primary);
+}
+
 .section-tagline {
 	color: var(--color-primary);
 }
