@@ -389,7 +389,7 @@ ul.row {
 	color: var(--text-color);
 }
 
-.social-item.nav-item {
+.social-link {
 	display: block;
 }
 
