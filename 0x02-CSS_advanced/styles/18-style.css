@@ -319,7 +319,8 @@ a:active {
 }
 
 .nav {
-	margin: 0 0;
+	margin: 0;
+	padding: 0;
 	list-style: none;
 	text-align: center;
 }
@@ -335,7 +336,7 @@ a:active {
 
 .nav .nav-link {
 	display: block;
-	padding: .5rem 1rem .5rem 1rem;
+	padding: .5rem 1rem;
 }
 
 .nav-link:hover {
