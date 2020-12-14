@@ -507,7 +507,6 @@ ul.row {
 	overflow: hidden;
 }
 
-/* Maybe try vertical-align: text-bottom; for bottom: 0; */
 .card-work .card-image img {
 	height: 30rem;
 	width: 100%;
