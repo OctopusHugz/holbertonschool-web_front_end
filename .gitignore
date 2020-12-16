@@ -13,3 +13,4 @@
 *.so
 check.sh
 index.html
+*sass-cache*
