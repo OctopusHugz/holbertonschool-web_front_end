@@ -1,1 +1,13 @@
 /* My style */
+@mixin margins($pixels) {
+	margin-left: $pixels;
+	margin-right: $pixels;
+}
+
+body {
+	@include margins(10px);
+}
+
+div {
+	@include margins(15px);
+}
