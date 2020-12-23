@@ -1,28 +1,48 @@
 .container {
 	display: flex;
 	justify-content: center;
+	align-items: baseline;
+	height: 25vh;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .box {
 	color: white;
+	height: 40%;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
 .box1 {
 	background-color: green;
+	width: 10%;
 }
 
 .box2 {
 	background-color: blue;
+	height: 50%;
+	width: 15%;
+	font-size: large;
 }
 
 .box3 {
 	background-color: red;
+	height: 75%;
+	width: 20%;
+	font-size: xx-large;
 }
 
 .box4 {
 	background-color: purple;
+	height: 50%;
+	width: 15%;
+	font-size: large;
 }
 
 .box5 {
 	background-color: orange;
+	width: 10%;
 }
