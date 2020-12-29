@@ -913,7 +913,7 @@ textarea:focus {
 }
 
 .form-group:focus-within {
-	background: var(--color-light-grey);
+	background-color: var(--color-light-grey);
 	transition: .3s;
 }
 
