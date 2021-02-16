@@ -1,5 +1,3 @@
-#!/usr/bin/node
-
 function createClassRoom(numberOfStudents) {
   function studentSeat(seat) {
     return function () {
