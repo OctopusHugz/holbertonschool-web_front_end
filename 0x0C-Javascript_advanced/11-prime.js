@@ -24,7 +24,7 @@ setTimeout(function () {
   for (let i = 0; i < 100; i++) {
     countPrimeNumbers();
   }
-}, 1000);
+});
 let t2 = performance.now();
 let time_elapsed = t2 - t1;
 console.log(
