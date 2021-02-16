@@ -1,4 +1,3 @@
-#!/usr/bin/node
 function divideBy(firstNumber) {
   return function (secondNumber) {
     return secondNumber / firstNumber;
