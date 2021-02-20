@@ -8,16 +8,17 @@ $(document).ready(function () {
   }
 
   function addNewMember(firstName, lastName) {
-    numRows++;
-    $("table tbody").append("<tr><td></td><td></td><td></td></tr>");
-    $(`tbody tr:nth-child(${numRows}) td:nth-child(1)`).html(firstName);
-    $(`tbody tr:nth-child(${numRows}) td:nth-child(2)`).html(lastName);
-    $(`tbody tr:nth-child(${numRows}) td:nth-child(3)`)
+    let newRow = $("<tr></tr>");
+    let fnCell = $("<td></td>").html(firstName);
+    let lnCell = $("<td></td>").html(lastName);
+    let xCell = $("<td></td>")
       .html("(x)")
       .css("background", "orange")
       .click(function () {
         $(this).parent().remove();
       });
+    $(newRow).append(fnCell, lnCell, xCell);
+    $("tbody").append(newRow);
   }
 
   createFamilyTree();
