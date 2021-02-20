@@ -15,8 +15,9 @@ $(document).ready(function () {
     let p2 = $("<p></p>");
     let newSpan = $("<span></span>");
     let newB = $("<b></b>").html(title);
-    let spanText = `${id} - ` + $(newB).html();
+    let spanText = $(newB);
     $(newSpan).html(spanText);
+    $(newSpan).prepend(`${id} - `);
     $(p1).append(newSpan);
     $(p2).html(snippet);
     $(newLI).append(p1, p2);
