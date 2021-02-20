@@ -41,11 +41,15 @@ $(document).ready(() => {
     Object.keys(params).forEach((key) => {
       url += "&" + key + "=" + params[key];
     });
+
+    displayLoading(true);
+
     fetch(url)
       .then(function (response) {
         return response.json();
       })
       .then(function (response) {
+        displayLoading(false);
         let searchResults = response.query.search;
         let totalHits = response.query.searchinfo.totalhits;
         $("ul:first-of-type").empty();
@@ -78,6 +82,14 @@ $(document).ready(() => {
         queryWikipedia(searchQuery, index * 10);
       });
       $("ul#pagination").append(newListItem);
+    }
+  }
+
+  function displayLoading(loading) {
+    if (loading) {
+      $("ul:first-of-type").wrap("<div class='loading'></div>");
+    } else {
+      $("ul:first-of-type").unwrap();
     }
   }
 
