@@ -1,14 +1,15 @@
 let searchQuery;
 let searchResults;
 let pageOffset = 0;
-$(document).ready(function () {
+let pageNumber = 1;
+$(document).ready(() => {
   function createSearchForm() {
     $("body").append("<input type='text'>");
     $("body").append("<input type='submit'>");
     $("body").append("<ul></ul><ul id='pagination'></ul>");
     $("input[type='submit']").click(() => {
       searchQuery = $("input[type='text']").val();
-      queryWikipedia(searchQuery, pageOffset);
+      queryWikipedia(searchQuery, 0);
     });
   }
 
@@ -18,12 +19,13 @@ $(document).ready(function () {
     let p2 = $("<p></p>");
     let newSpan = $("<span></span>");
     let newB = $("<b></b>").html(title);
-    let spanText = `${id} - ` + $(newB).html();
+    let spanText = $(newB);
     $(newSpan).html(spanText);
+    $(newSpan).prepend(`${id} - `);
     $(p1).append(newSpan);
     $(p2).html(snippet);
     $(newLI).append(p1, p2);
-    $("ul:first-of-type").append(newLI);
+    $("ul").append(newLI);
   }
 
   function queryWikipedia(search, offset) {
@@ -48,17 +50,10 @@ $(document).ready(function () {
       .then(function (response) {
         searchResults = response.query.search;
         let totalHits = response.query.searchinfo.totalhits;
-        console.log(`${totalHits}`);
-        for (let index = 0; index < 10; index++) {
-          addNewArticle(
-            searchResults[index].pageid,
-            searchResults[index].title,
-            searchResults[index].snippet
-          );
-        }
-        // searchResults.forEach((result) => {
-        //   addNewArticle(result.pageid, result.title, result.snippet);
-        // });
+        $("ul:first-of-type").empty();
+        searchResults.forEach((result) => {
+          addNewArticle(result.pageid, result.title, result.snippet);
+        });
         buildPagination(totalHits, 10, offset);
       })
       .catch((error) => {
@@ -67,11 +62,10 @@ $(document).ready(function () {
   }
 
   function buildPagination(numberOfItems, itemsPerPage, currentOffset) {
-    let pageNumber = 1;
     $("ul#pagination").empty();
-    console.log(`${pageOffset}`);
-    while (pageOffset < numberOfItems) {
-      let newListItem = $("<li><li>").html(pageNumber);
+    console.log(`currentOffset is: ${currentOffset}`);
+    for (let index = 0; index < numberOfItems / itemsPerPage; index++) {
+      let newListItem = $("<li><li>").html(index + 1);
       $(newListItem).css("cursor", "pointer");
       $(newListItem).css("margin-left", "10px");
       $("ul#pagination").css("display", "flex");
@@ -80,15 +74,10 @@ $(document).ready(function () {
       // Only bold when this is the current page!
       // $(newListItem).css("font-weight", "bold");
 
-      // When clicking on a page number,
-      // it should call the function queryWikipedia with the right offset
       $(newListItem).click(() => {
-        queryWikipedia(searchQuery, pageOffset);
+        queryWikipedia(searchQuery, (index + 1) * 10);
       });
       $("ul#pagination").append(newListItem);
-
-      pageOffset += itemsPerPage;
-      pageNumber++;
     }
   }
 
