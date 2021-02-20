@@ -1,7 +1,6 @@
 let searchQuery;
 let searchResults;
-let pageOffset = 0;
-let pageNumber = 1;
+
 $(document).ready(() => {
   function createSearchForm() {
     $("body").append("<input type='text'>");
@@ -63,19 +62,17 @@ $(document).ready(() => {
 
   function buildPagination(numberOfItems, itemsPerPage, currentOffset) {
     $("ul#pagination").empty();
-    console.log(`currentOffset is: ${currentOffset}`);
-    for (let index = 0; index < numberOfItems / itemsPerPage; index++) {
-      let newListItem = $("<li><li>").html(index + 1);
+    let pageNumber = currentOffset / 10;
+    if (pageNumber === 0) pageNumber++;
+    for (let index = 1; index < numberOfItems / itemsPerPage + 1; index++) {
+      let newListItem = $("<li><li>").html(index);
       $(newListItem).css("cursor", "pointer");
       $(newListItem).css("margin-left", "10px");
       $("ul#pagination").css("display", "flex");
       $("ul#pagination").css("list-style", "none");
-
-      // Only bold when this is the current page!
-      // $(newListItem).css("font-weight", "bold");
-
+      if (pageNumber === index) $(newListItem).css("font-weight", "bold");
       $(newListItem).click(() => {
-        queryWikipedia(searchQuery, (index + 1) * 10);
+        queryWikipedia(searchQuery, index * 10);
       });
       $("ul#pagination").append(newListItem);
     }
