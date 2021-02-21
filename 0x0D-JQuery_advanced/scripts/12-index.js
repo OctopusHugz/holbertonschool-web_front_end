@@ -70,7 +70,7 @@ $(() => {
     let removeString = `#row-${id}`;
     $.ajax({
       type: "DELETE",
-      url: url + "/" + id,
+      url: url + `/${id}`,
       success: () => {
         $("p").remove(removeString);
       },
