@@ -14,3 +14,4 @@
 check.sh
 index.html
 *sass-cache*
+node_modules
