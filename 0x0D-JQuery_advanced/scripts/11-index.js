@@ -30,12 +30,14 @@ $(() => {
     let newSubmit = $("<input type='submit'>");
     $("body").append($(newForm).append(newDiv1, newDiv2, newSubmit));
     let textArea = $("textarea[id='title']");
-    $(newSubmit).click(() => {
+    $("form").submit((e) => {
+      e.preventDefault();
       sendForm();
     });
     $(textArea).keypress((e) => {
       if (e.which === 13) {
-        $(newSubmit).click();
+        e.preventDefault();
+        sendForm();
       }
     });
   }
@@ -46,10 +48,16 @@ $(() => {
     let data = { author: authorInput, title: titleInput };
     let url = "http://localhost:3000/posts";
     $("form").after("About to send the query to the API");
-    $.post(url, data, function (response) {
-      addPostRow(response);
-    }).fail(() => {
-      alert("Error sending the POST query");
+    $.ajax({
+      type: "POST",
+      url: url,
+      data: data,
+      success: (response) => {
+        addPostRow(response);
+      },
+      error: () => {
+        alert("Error sending the POST query");
+      },
     });
   }
 
