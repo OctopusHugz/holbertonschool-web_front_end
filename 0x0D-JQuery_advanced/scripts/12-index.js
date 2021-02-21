@@ -1,16 +1,22 @@
+let url = "http://localhost:3000/posts";
 $(() => {
   function addPostRow(data) {
-    let newP = $("<p></p>");
+    let pString = `<p id="row-${data.id}"></p>`;
+    let newP = $(pString);
+    let newFirstSpan = $("<span>(delete)</span>");
     let newSpan = $("<span></span>");
+    $(newFirstSpan).click(() => {
+      deletePost(data.id);
+    });
     $(newSpan).html(
       `Post created with id ${data.id}, title: ${data.title}, author: ${data.author}`
     );
-    $(newP).append(newSpan);
+    $(newP).append(newFirstSpan, newSpan);
     $("body").append(newP);
   }
 
   function listPosts() {
-    $.get("http://localhost:3000/posts", function (response) {
+    $.get(url, function (response) {
       response.forEach((post) => {
         addPostRow(post);
       });
@@ -46,7 +52,6 @@ $(() => {
     let authorInput = $("input[id='author']").val();
     let titleInput = $("textarea[id='title']").val();
     let data = { author: authorInput, title: titleInput };
-    let url = "http://localhost:3000/posts";
     $("form").after("About to send the query to the API");
     $.ajax({
       type: "POST",
@@ -57,6 +62,20 @@ $(() => {
       },
       error: () => {
         alert("Error sending the POST query");
+      },
+    });
+  }
+
+  function deletePost(id) {
+    let removeString = `#row-${id}`;
+    $.ajax({
+      type: "DELETE",
+      url: url + "/" + id,
+      success: () => {
+        $("p").remove(removeString);
+      },
+      error: () => {
+        alert("Post was not deleted");
       },
     });
   }
