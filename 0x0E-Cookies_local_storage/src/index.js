@@ -8,10 +8,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function showCookies() {
     let newP = document.createElement("p");
-    let allCookies = document.cookie;
-    newP.innerHTML = `Cookies: ${allCookies}`;
+    let emailCookie = getCookie("email");
+    let firstnameCookie = getCookie("firstname");
+    console.log(emailCookie);
+    console.log(firstnameCookie);
+    newP.innerHTML = `Email: ${emailCookie} - Firstname: ${firstnameCookie}`;
     document.body.append(newP);
   }
+
+  function getCookie(name) {
+    try {
+      let cookieValue = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith(name + "="))
+        .split("=")[1];
+      return cookieValue;
+    } catch (error) {
+      return "";
+    }
+  }
+
   document.getElementById("login").addEventListener("click", setCookies);
   document.getElementById("show").addEventListener("click", showCookies);
 });
