@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   function setCookies() {
     let firstNameInput = document.getElementById("firstname").value;
     let emailInput = document.getElementById("email").value;
