@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   let availableItems = ["Shampoo", "Soap", "Sponge", "Water"];
-  if (typeof Storage !== "undefined") {
+  if (window.sessionStorage) {
     createStore();
     displayCart();
   } else {
