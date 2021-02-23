@@ -27,8 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function displayCart() {
-    // If the local storage contains any item, it should display the message
-    // in a p element that you can append to the body
     if (localStorage.length > 2) {
       let newP = document.createElement("p");
       newP.innerHTML = `You previously had ${
