@@ -5,7 +5,110 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
-	<script src="src/7-index.js"></script>
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+			let availableItems = ["Shampoo", "Soap", "Sponge", "Water"];
+			let cart;
+			let ssJSON;
+			if (window.sessionStorage) {
+				sessionStorage.removeItem("IsThisFirstTime_Log_From_LiveServer")
+				ssJSON = JSON.stringify(sessionStorage);
+				cart = getCartFromStorage();
+				createStore();
+				displayCart();
+			} else {
+				alert(
+					"Sorry, your browser does not support Web storage. Try again with a better one"
+				);
+			}
+
+			function getCartFromStorage() {
+				let parseCart;
+				if (ssJSON.length === 2)
+					return {}
+				parseCart = JSON.parse(ssJSON);
+				console.log(JSON.parse(parseCart.cart));
+				return JSON.parse(parseCart.cart);
+			}
+
+			function addItemToCart(item) {
+				if (!cart[`${item}`])
+					cart[`${item}`] = 1;
+				else if (cart[`${item}`] >= 1)
+					cart[`${item}`]++;
+				sessionStorage.setItem("cart", JSON.stringify(cart));
+				displayCart();
+			}
+
+			function removeItemfromCart(item) {
+				delete cart[`${item}`];
+				sessionStorage.setItem("cart", JSON.stringify(cart));
+				displayCart();
+			}
+
+			function clearCart() {
+				sessionStorage.clear();
+				displayCart();
+			}
+
+			function createStore() {
+				let newH2 = document.createElement("h2");
+				newH2.innerHTML = "Available products:";
+				document.body.append(newH2);
+				let newUL = document.createElement("ul");
+				availableItems.forEach((item) => {
+					let newLI = document.createElement("li");
+					newLI.innerHTML = item;
+					newLI.addEventListener("click", () => {
+						addItemToCart(item);
+					});
+					newUL.append(newLI);
+				});
+				document.body.append(newUL);
+			}
+
+			function displayCart() {
+				// It should add an empty div tag
+				// If the div tag already exist, it should remove any list child
+				// It calls updateCart
+				let oldH2 = document.querySelector("h2:nth-of-type(2)");
+				if (!oldH2) {
+					let newH2 = document.createElement("h2");
+					newH2.innerHTML = "Your cart:";
+					document.body.append(newH2);
+				}
+				let existingDiv = document.querySelector("div");
+				let newDiv = document.createElement("div");
+				if (existingDiv) {
+					// add firstChild.firstChild?
+					while (existingDiv.firstChild)
+						existingDiv.firstChild.remove();
+				} else {
+					document.body.append(newDiv);
+					updateCart();
+				}
+			}
+
+			function updateCart() {
+				let newUL = document.createElement("ul");
+				document.querySelector("div").append(newUL);
+				let emptyLI = document.createElement("li");
+				// IF CART IS EMPTY
+				emptyLI.innerHTML = "Your cart is empty";
+				newUL.append(emptyLI);
+				// IF CART IS NOT EMPTY
+				// ADD ITEMS WITHIN CART WITH FORMAT:
+				// ITEM_NAME x QUANTITY (remove)
+				// When user clicks on remove, call the function removeItemfromCart
+				// At the top of the cart, add an item named Clear my cart.
+				// When the user clicks on it, it should call the function clearCart()
+				let clearLI = document.createElement("li");
+				clearLI.innerHTML = "Clear my cart";
+				clearLI.addEventListener("click", clearCart);
+				newUL.prepend(clearLI);
+			}
+		});
+	</script>
 </head>
 
 <body>
@@ -13,3 +116,10 @@
 </body>
 
 </html>
+
+
+
+<!-- 				// for (let [key, value] of Object.entries(cart)) {
+				// 	cart[`${key}`] = parseInt("1");
+				// }
+				// let cartJSON = JSON.stringify(cart); -->
