@@ -11,13 +11,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let allCookies = document.cookie;
     newP.innerHTML = `Cookies: ${allCookies}`;
     document.body.append(newP);
-    // let allCookies = document.cookie.split(";");
-    // allCookies.forEach((cookie) => {
-    //   cookie = cookie.trim();
-    //   let cookieKey = cookie.split("=")[0];
-    //   let cookieValue = cookie.split("=")[1];
-    //   console.log(cookieValue);
-    // });
   }
   document.getElementById("login").addEventListener("click", setCookies);
   document.getElementById("show").addEventListener("click", showCookies);
